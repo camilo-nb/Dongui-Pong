@@ -13,6 +13,8 @@ class TennisCourt:
         self.NEAR = NEAR
         self.SHIFT = SHIFT
 
+        # see tennis_court_graph.png
+
         self.vertices = np.array(
             [
                 #
