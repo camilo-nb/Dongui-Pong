@@ -23,20 +23,17 @@ class Ball:
         else:
             return False
             
-    def sideline_bounce(self, SIZE, NEAR, OFFSET):
-        if abs(self.pos[0]) > SIZE[0]:
-            self.pos[0] = SIZE[0]*np.sign(self.pos[0])
+    def sideline_bounce(self, SIZE, NEAR, SHIFT):
+        if abs(self.pos[0]) > SIZE[0] / 2:
+            self.pos[0] = SIZE[0] / 2 * np.sign(self.pos[0])
             self.vel[0] *= -1
-        if self.pos[2] > SIZE[1] + NEAR + OFFSET:
-            self.pos[2] = SIZE[1] + NEAR + OFFSET
+        if self.pos[2] > SIZE[1] + NEAR + SHIFT:
+            self.pos[2] = SIZE[1] + NEAR + SHIFT
             self.vel[2] *= -1
-        elif self.pos[2] < NEAR + OFFSET:
-            self.pos[2] = NEAR + OFFSET
+        elif self.pos[2] < NEAR + SHIFT:
+            self.pos[2] = NEAR + SHIFT
             self.vel[2] *= -1
 
-
-
-    
     def move(self):
         self.vel = self.vel + self.acc
         self.pos = self.pos + self.vel

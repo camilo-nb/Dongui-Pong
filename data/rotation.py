@@ -3,24 +3,17 @@
 
 """
 rotation.py
-
 Rotation is a module designed to organize the three basic
 rotation matrices in three dimensions, according to 
 https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations.
-
 It is based on numpy arrays.
-
 Context examples:
-
 The unit vector in the direction of the x axis
 of a three dimensional Cartesian coordinate system
 is written as np.array([1, 0, 0]).
-
 The identity amtrix of size 3 is written as
 np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-
 Rotation example:
-
 # TODO 
 Rotate hat(i) to get hat(k).
 """
@@ -138,20 +131,15 @@ def perspective_projection(vector, near, far, FOV = 2*np.pi/3, AR = 1):
     ----------
     vector : array_like
         Input vector array.
-
     near : float
         Distance to the near clipping plane along the z-axis.
-
     far : float
         Distance to the far clipping plane along the z-axis.
-
     FOV : float
         Field of view.
         The angle between the upper and lower sides of the viewing frustum.
-
     AR : float
         The aspect ratio of the viewing window (width/height).
-
     Returns
     -------
     projected_vector : array_like
