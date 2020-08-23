@@ -2,25 +2,25 @@
 # -*- coding: utf-8 -*-
 
 import os
+import numpy as np
 
 class Ball:
 
-    def __init__(self, image_file):
-
-        self.image = pygame.image.load(image_file).convert_alpha()
-
-        self.width, self.height = self.image.get_size()
-
-        self.x = WIDTH / 2 - self.width / 2
-        self.y = HEIGHT / 2 - self.height / 2
-
-        self.delta_x = 2
-        self.delta_y = 2
+    def __init__(self, a):
+        self.pos = a
+        self.vel = np.array([10, 10, 10, 0])
+        self.acc = np.array([0, -5, 0, 0])
 
     @classmethod
     def tennis(cls):
         return cls(os.chdir("../resources/images/tennis_ball.png"))
 
+    def bounce(self, floor):
+        if self.pos[1] < floor:
+            self.pos[1] = floor
+            self.vel[1] *= -1
+            
+    
     def move(self):
-        self.x += self.delta_x
-        self.y += self.delta_y
+        self.vel = self.vel + self.acc
+        self.pos = self.pos + self.vel
