@@ -90,17 +90,17 @@ def main():
         index = 0
         projected_points = [j for j in range(len(tennis_court.vertices))]
 
-        for vertice in tennis_court.vertices:
-            #rotated_3D = cartesian_rotation(vertice[:3], *ANGLES)
+        for vertex in tennis_court.vertices:
+            #rotated_3D = cartesian_rotation(vertex[:3], *ANGLES)
             #rotated_4D = np.append(rotated_3D, [1])
             #projected_2D = perspective_projection(rotated_4D, NEAR, FAR, FOV = np.pi/2)
-            projected_2D = perspective_projection(vertice, NEAR, FAR, FOV = np.pi/2)
+            projected_2D = perspective_projection(vertex, NEAR, FAR, FOV = np.pi/2)
             x = int(projected_2D[0] * SCALE) + POS[0]
             y = int(projected_2D[1] * SCALE) + POS[1]
             projected_points[index] = [x, y]
             pygame.draw.circle(
                 window, # surface
-                COLORS["WHITE"] if vertice[2] < FAR else COLORS["CLAY_COURT"], # color
+                COLORS["WHITE"] if vertex[2] < FAR else COLORS["CLAY_COURT"], # color
                 (x, y), # center
                 1 # radius
             )
@@ -121,7 +121,7 @@ def main():
         y = int(projected_2D[1] * SCALE) + POS[1]
         pygame.draw.circle(
             window, # surface
-            COLORS["TENNIS_BALL_GREEN"] if vertice[2] < FAR else COLORS["CLAY_COURT"], # color
+            COLORS["TENNIS_BALL_GREEN"] if vertex[2] < FAR else COLORS["CLAY_COURT"], # color
             (x, y), # center
             5 # radius
         )
