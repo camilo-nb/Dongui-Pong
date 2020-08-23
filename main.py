@@ -36,14 +36,16 @@ SCALE = -1
 SPEED = np.array([0.001, 0, 0.001])
 NEAR = 100 # distance between viewer (origin) and screen
 FAR = 10000
-POS = np.array([WIDTH // 2, HEIGHT // 2])
+
+FLOOR = -300
+POS = np.array([WIDTH // 2, (HEIGHT - FLOOR) // 2])
 
 TENNIS_COURT = np.array(
     [
-        [-823 / 2 , -100, NEAR + 2377 / 2, 1],
-        [823 / 2, -100, NEAR + 2377 / 2, 1],
-        [823 / 2, -100, NEAR - 2377 / 2, 1],
-        [-823 / 2, -100, NEAR - 2377 / 2, 1]
+        [-823 / 2 , FLOOR, NEAR + 2377 / 2, 1],
+        [823 / 2, FLOOR, NEAR + 2377 / 2, 1],
+        [823 / 2, FLOOR, NEAR - 2377 / 2, 1],
+        [-823 / 2, FLOOR, NEAR - 2377 / 2, 1]
     ]
 )
 
