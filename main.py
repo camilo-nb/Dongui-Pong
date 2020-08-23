@@ -36,15 +36,18 @@ SCALE = 1
 SPEED = np.array([0, 0, 0])
 NEAR = 500 # distance between viewer (origin) and screen
 FAR = 10000000
-DELTA = -200
-POS = np.array([WIDTH // 2, (HEIGHT- DELTA) // 2 ])
+FLOOR = -200
+OFFSET = 100
+POS = np.array([WIDTH // 2, (HEIGHT- FLOOR) // 2 ])
+
+TC_SIZE= (823, 2377)
 
 TENNIS_COURT = np.array(
     [
-        [-823 / 2 , DELTA, NEAR + 100 + 2377, 1],
-        [823 / 2, DELTA, NEAR + 100 + 2377, 1],
-        [823 / 2, DELTA, NEAR + 100, 1],
-        [-823 / 2, DELTA, NEAR + 100, 1],
+        [-TC_SIZE[0] / 2 , FLOOR, NEAR + OFFSET + TC_SIZE[1], 1],
+        [TC_SIZE[0] / 2, FLOOR, NEAR + OFFSET + TC_SIZE[1], 1],
+        [TC_SIZE[0] / 2, FLOOR, NEAR + OFFSET, 1],
+        [-TC_SIZE[0] / 2, FLOOR, NEAR + OFFSET, 1],
         [0, 0, 0, 0]
     ]
 )
@@ -61,17 +64,13 @@ def main():
 
     font = pygame.font.Font(None, 60)
 
-    pelota = Ball([200, DELTA + 500, NEAR + 100 + 2377 / 3, 1])
+    pelota = Ball([0, FLOOR + 100, NEAR + OFFSET + TC_SIZE[1], 1])
     
     while running:
-        #DELTA = i
-
-        pelota.move()
-        pelota.bounce(DELTA)
+        #FLOOR = i
 
         TENNIS_COURT[4] = pelota.pos
         
-    
         window.fill(COLORS["CLAY_COURT"])
 
         for event in pygame.event.get():
@@ -96,6 +95,17 @@ def main():
                 5 # radius
             )
             index += 1
+
+        pelota.move()
+        pelota.sideline_bounce(TC_SIZE, NEAR, OFFSET)
+        if pelota.bounce(FLOOR):
+            pygame.draw.circle(
+                window, # surface
+                COLORS["RED"], # color
+                projected_points[4], # center
+                5 # radius
+            )
+
         pygame.draw.line(window, COLORS["WHITE"], projected_points[0], projected_points[1])
         pygame.draw.line(window, COLORS["WHITE"], projected_points[1], projected_points[2])
         pygame.draw.line(window, COLORS["WHITE"], projected_points[2], projected_points[3])

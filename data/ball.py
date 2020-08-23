@@ -8,8 +8,8 @@ class Ball:
 
     def __init__(self, a):
         self.pos = a
-        self.vel = np.array([10, 10, 10, 0])
-        self.acc = np.array([0, -5, 0, 0])
+        self.vel = np.array([10, 0, 10, 0])
+        self.acc = np.array([0, -1, 0, 0])
 
     @classmethod
     def tennis(cls):
@@ -19,7 +19,23 @@ class Ball:
         if self.pos[1] < floor:
             self.pos[1] = floor
             self.vel[1] *= -1
+            return True
+        else:
+            return False
             
+    def sideline_bounce(self, SIZE, NEAR, OFFSET):
+        if abs(self.pos[0]) > SIZE[0]:
+            self.pos[0] = SIZE[0]*np.sign(self.pos[0])
+            self.vel[0] *= -1
+        if self.pos[2] > SIZE[1] + NEAR + OFFSET:
+            self.pos[2] = SIZE[1] + NEAR + OFFSET
+            self.vel[2] *= -1
+        elif self.pos[2] < NEAR + OFFSET:
+            self.pos[2] = NEAR + OFFSET
+            self.vel[2] *= -1
+
+
+
     
     def move(self):
         self.vel = self.vel + self.acc
